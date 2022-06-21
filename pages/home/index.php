@@ -1,31 +1,29 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 include __DIR__ . '/app.php';
+include __DIR__ . '/config-content.php';
+
 $error = getFlash('error');
 $success = getFlash('success');
 ?>
 
             <!-- About-->
             <section class="resume-section" id="about">
-                <div class="resume-section-content">
-                    <?php 
-                        if(isset($_GET['msg']) && $_GET['msg'] === 'sucesso') {  
-                            echo "<div class='alert alert-success' role='alert'> Sua mensagem foi enviada com sucesso!</div>";
-                            }  
-                     ?>                   
-                    <h1 class="mb-0">Brunno<span class="text-primary"> Hernandez</span>
+                <div class="resume-section-content">                 
+                    <h1 class="mb-0"><?= CONTENT['name']; ?><span class="text-primary"> <?= CONTENT['last-name']; ?></span>
                     </h1>
                     <div class="subheading mb-5">
-                        empreendedor, marketing digital, developer web e especialista SEO.
+                    <?= CONTENT['sub-description']; ?>
                         <a href="#"></a>
                     </div>
-                    <p class="lead mb-5">I am experienced in leveraging agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+                    <p class="lead mb-5"><?= CONTENT['description']; ?></p>
                     <div class="social-icons">
-                        <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>
-                        <a class="social-icon" href="#!"><i class="fab fa-instagram"></i></a>
+                        <?= CONTENT['facebook'] ? '<a class="social-icon" href="'.CONTENT['facebook'].'"><i class="fab fa-facebook"></i></a>' : null ?>
+                        <?= CONTENT['instagram'] ? '<a class="social-icon" href="'.CONTENT['instagram'].'"><i class="fab fa-instagram"></i></a>' : null ?>
+                        <?= CONTENT['twitter'] ? '<a class="social-icon" href="'.CONTENT['twitter'].'"><i class="fab fa-twitter"></i></a>' : null ?>
+                        <?= CONTENT['linkedin'] ? '<a class="social-icon" href="'.CONTENT['linkedin'].'"><i class="fab fa-linkedin-in"></i></a>' : null ?>
+                        <?= CONTENT['youtube'] ? '<a class="social-icon" href="'.CONTENT['youtube'].'"><i class="fab fa-youtube"></i></a>' : null ?>
+                        <?= CONTENT['github'] ? '<a class="social-icon" href="'.CONTENT['github'].'"><i class="fab fa-github"></i></a>' : null ?>
                     </div>
                 </div>
             </section>
@@ -34,46 +32,20 @@ $success = getFlash('success');
             <section class="resume-section" id="experience">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Experiência</h2>
+                    <?php                    
+                    foreach(CONTENT['experience'] as $experience) {
+                    ?>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
-                            <h3 class="mb-0">Empresário</h3>
-                            <div class="subheading mb-3">Kesia Transportes</div>
-                            <p>Paralelo ao mundo digital eu administro uma empresa do ramo de transporte rodoviario desde 2004. Talves esse seja meu maior legado e o que me garantiu bagagem no mundo corporativo, liderança, criatividade para inovar sempre e capacidade para soluções de problemas. </p>
+                            <h3 class="mb-0"><?= $experience['title'] ?></h3>
+                            <div class="subheading mb-3"><?= $experience['company'] ?></div>
+                            <p><?= $experience['description'] ?></p>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">Ativo desde 2004</span></div>
+                        <div class="flex-shrink-0"><span class="text-primary"><?= $experience['since'] ?></span></div>
                     </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Marketing digital</h3>
-                            <div class="subheading mb-3">Lançamentos / Estratégia</div>
-                            <p>Experiência no Marketing digital, atuando diretamente em lançamentos (vendas em grande escala) e vendas perpétuas. Conhecimento em estratégias digitais e na execução de todo o processo. Atingindo grandes resultados como 7em1, 6em1, 6em6 e 7em6 e trabalhando com grandes profissionais de comunicação.</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">Atuação de 2018 - 2021</span></div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Web Developer</h3>
-                            <div class="subheading mb-3">Criação e desenvolvimento de sites</div>
-                            <p>Desenvolvimento e criação de site em geral. Execução de grandes projetos como sites institucionais até landpages para demandas pontuais. Tecnologia usadas de acordo com cada projeto (Wordpress, Html, Css e JavaScript).</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">Atuação de 2018 - 2022</span></div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Developer Junior</h3>
-                            <div class="subheading mb-3">Programador Web</div>
-                            <p>Desenvolvedor Junior. Atuando em sistemas e aplicações mais robustas que envolvem banco de dados, APIs, segurança, painel de administração, área restrita, conteúdo personalizado e outros.</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">Em evolução desde 2020 - Ativo</span></div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">Hospedagem / domínio / dns</h3>
-                            <div class="subheading mb-3">contratações e configurações</div>
-                            <p>Expericia com</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">September 2008 - June 2010</span></div>
-                    </div>
+                    <?php 
+                    } 
+                    ?>                    
                 </div>
             </section>
             <hr class="m-0" />
@@ -85,7 +57,7 @@ $success = getFlash('success');
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
                             <div class="card shadow-sm rounded" style="width: 15rem; height: 20rem;">
-                                <img src="./assets/img/site.png" class="card-img-top" style="width: 100%; height: 100%;">
+                                <img src="/include/assets/img/site.png" class="card-img-top" style="width: 100%; height: 100%;">
                                 <div class="card-body">
                                     <p class="card-text"></p>
                                 </div>
@@ -93,7 +65,7 @@ $success = getFlash('success');
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
                             <div class="card shadow-sm rounded" style="width: 15rem; height: 20rem;">
-                                <img src="./assets/img/site2.png" class="card-img-top object-fit-cover" style="width: 100%; height: 100%;">
+                                <img src="/include/assets/img/site2.png" class="card-img-top object-fit-cover" style="width: 100%; height: 100%;">
                                 <div class="card-body">
                                     <p class="card-text"></p>
                                 </div>
@@ -101,7 +73,7 @@ $success = getFlash('success');
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
                             <div class="card shadow-sm rounded" style="width: 15rem; height: 20rem;">
-                                <img src="./assets/img/site3.png" class="card-img-top" style="width: 100%; height: 100%;">
+                                <img src="/include/assets/img/site3.png" class="card-img-top" style="width: 100%; height: 100%;">
                                 <div class="card-body">
                                     <p class="card-text"></p>
                                 </div>
@@ -109,7 +81,7 @@ $success = getFlash('success');
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
                             <div class="card shadow-sm rounded" style="width: 15rem; height: 20rem;">
-                                <img src="./assets/img/site4.png" class="card-img-top" style="width: 100%; height: 100%;">
+                                <img src="/include/assets/img/site4.png" class="card-img-top" style="width: 100%; height: 100%;">
                                 <div class="card-body">
                                     <p class="card-text"></p>
                                 </div>
@@ -117,7 +89,7 @@ $success = getFlash('success');
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
                             <div class="card shadow-sm rounded" style="width: 15rem; height: 20rem;">
-                                <img src="./assets/img/site5.png" class="card-img-top" style="width: 100%; height: 100%;">
+                                <img src="/include/assets/img/site5.png" class="card-img-top" style="width: 100%; height: 100%;">
                                 <div class="card-body">
                                     <p class="card-text"></p>
                                 </div>
@@ -125,7 +97,7 @@ $success = getFlash('success');
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
                             <div class="card shadow-sm rounded" style="width: 15rem; height: 20rem;">
-                                <img src="./assets/img/site6.png" class="card-img-top" style="width: 100%; height: 100%;">
+                                <img src="/include/assets/img/site6.png" class="card-img-top" style="width: 100%; height: 100%;">
                                 <div class="card-body">
                                     <p class="card-text"></p>
                                 </div>
